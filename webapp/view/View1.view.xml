@@ -1,0 +1,659 @@
+<mvc:View
+    controllerName="project1.controller.View1"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns:fb="sap.ui.comp.filterbar"
+    xmlns:viz="sap.viz.ui5.controls"
+    xmlns:viz.data="sap.viz.ui5.data"
+    xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds"
+    xmlns="sap.m">
+
+    <Page id="mainPage" title="Assurance Command Center">
+        <content>
+
+            <VBox id="mainVBox" width="100%">
+
+                <!-- TABS -->
+                <VBox id="_IDGenVBox" width="auto"
+                      class="sapUiSmallMarginBegin sapUiSmallMarginEnd sapUiTinyMarginTop">
+                    <HBox id="tabsRow" alignItems="Center" width="100%">
+                        <SegmentedButton id="mainNavigation" class="sapUiSizeCompact"
+                                         width="auto" selectionChange="onTabChange">
+                            <layoutData>
+                                <FlexItemData id="_IDGenFlexItemData" growFactor="1"/>
+                            </layoutData>
+                        </SegmentedButton>
+                        <Button id="moreButton" class="sapUiSizeCompact sapUiTinyMarginBegin"
+                                text="More" icon="sap-icon://slim-arrow-down"
+                                iconFirst="false" visible="false" press="onMorePress"/>
+                    </HBox>
+                </VBox>
+
+                <!-- CONTROL MONITORING -->
+                <VBox id="monitoringContent" visible="false" width="auto"
+                      class="sapUiSizeCompact sapUiTinyMarginTop sapUiSmallMarginBegin sapUiSmallMarginEnd">
+
+                    <!-- HEADING -->
+                    <FlexBox id="monitoringHeader" justifyContent="SpaceBetween"
+                             alignItems="Center" width="100%" wrap="Wrap"
+                             class="sapUiSmallMarginBottom">
+                        <VBox id="monitoringHeadingBox">
+                            <Title id="cmTitle" text="Control Monitoring" level="H3"
+                                   class="customHeading"/>
+                            <Text id="monitoringSubtitle"
+                                  text="SAP Controls, Testing, Evidence, Risk &amp; Continuous Assurance"/>
+                        </VBox>
+                        <ObjectStatus id="lastRefreshStatus"
+                                      text="Last Refresh: 15 Nov 2026, 10:24 AM" state="Success"/>
+                    </FlexBox>
+
+                    <!-- FILTER BAR -->
+                    <fb:FilterBar id="filterBar" useToolbar="false" showGoOnFB="true"
+                                  showFilterConfiguration="false" showClearOnFB="false"
+                                  search="onFilterSearch">
+                        <fb:filterGroupItems>
+
+                            <fb:FilterGroupItem id="fiSystem" groupName="G1" name="system"
+                                                label="System" visibleInFilterBar="true">
+                                <fb:control>
+                                    <Select id="selSystem" selectedKey="prd">
+                                        <core:Item id="_IDGenItem" key="prd" text="S/4HANA PRD"/>
+                                    </Select>
+                                </fb:control>
+                            </fb:FilterGroupItem>
+
+                            <fb:FilterGroupItem id="fiCompany" groupName="G1" name="company"
+                                                label="Company Code" visibleInFilterBar="true">
+                                <fb:control>
+                                    <Select id="selCompany" selectedKey="all">
+                                        <core:Item id="_IDGenItem1" key="all" text="All"/>
+                                    </Select>
+                                </fb:control>
+                            </fb:FilterGroupItem>
+
+                            <fb:FilterGroupItem id="fiProcess" groupName="G1" name="process"
+                                                label="Process / Module" visibleInFilterBar="true">
+                                <fb:control>
+                                    <Select id="selProcess" selectedKey="all">
+                                        <core:Item id="_IDGenItem2" key="all" text="All"/>
+                                    </Select>
+                                </fb:control>
+                            </fb:FilterGroupItem>
+
+                            <fb:FilterGroupItem id="fiStatus" groupName="G1" name="status"
+                                                label="Test Status" visibleInFilterBar="true">
+                                <fb:control>
+                                    <Select id="selStatus" selectedKey="all">
+                                        <core:Item id="_IDGenItem3" key="all" text="All"/>
+                                    </Select>
+                                </fb:control>
+                            </fb:FilterGroupItem>
+
+                            <fb:FilterGroupItem id="fiDate" groupName="G1" name="date"
+                                                label="Date Range" visibleInFilterBar="true">
+                                <fb:control>
+                                    <DateRangeSelection id="dateRange"
+                                        displayFormat="dd.MM.yyyy" delimiter=" – "/>
+                                </fb:control>
+                            </fb:FilterGroupItem>
+
+                        </fb:filterGroupItems>
+                    </fb:FilterBar>
+
+                    <!-- KPI TILES -->
+                    <FlexBox id="kpiTiles" width="100%" direction="Row" wrap="Wrap"
+                             justifyContent="Start" alignItems="Stretch" class="kpiTiles">
+
+                        <GenericTile id="tileApplicable" header="Applicable Controls" class="kpiTile">
+                            <TileContent id="_IDGenTileContent">
+                                <NumericContent id="_IDGenNumericContent" value="316"
+                                    icon="sap-icon://layer" valueColor="Neutral" withMargin="false"/>
+                            </TileContent>
+                        </GenericTile>
+
+                        <GenericTile id="tilePassed" header="Passed Controls" class="kpiTile">
+                            <TileContent id="_IDGenTileContent1">
+                                <NumericContent id="_IDGenNumericContent1" value="259"
+                                    icon="sap-icon://accept" valueColor="Good" withMargin="false"/>
+                            </TileContent>
+                        </GenericTile>
+
+                        <GenericTile id="tileFailed" header="Failed Controls" class="kpiTile">
+                            <TileContent id="_IDGenTileContent2">
+                                <NumericContent id="_IDGenNumericContent2" value="30"
+                                    icon="sap-icon://error" valueColor="Error" withMargin="false"/>
+                            </TileContent>
+                        </GenericTile>
+
+                        <GenericTile id="tileNotTested" header="Not Tested" class="kpiTile">
+                            <TileContent id="_IDGenTileContent3">
+                                <NumericContent id="_IDGenNumericContent3" value="18"
+                                    icon="sap-icon://history" valueColor="Critical" withMargin="false"/>
+                            </TileContent>
+                        </GenericTile>
+
+                        <GenericTile id="tileUnavailable" header="Unavailable" class="kpiTile">
+                            <TileContent id="_IDGenTileContent4">
+                                <NumericContent id="_IDGenNumericContent4" value="9"
+                                    icon="sap-icon://status-inactive" valueColor="Neutral" withMargin="false"/>
+                            </TileContent>
+                        </GenericTile>
+
+                        <GenericTile id="tileEffectiveness" header="Control Effectiveness" class="kpiTile">
+                            <TileContent id="_IDGenTileContent5">
+                                <NumericContent id="_IDGenNumericContent5" value="78" scale="%"
+                                    icon="sap-icon://settings" valueColor="Critical" withMargin="false"/>
+                            </TileContent>
+                        </GenericTile>
+
+                        <GenericTile id="tileOverdue" header="Overdue Tests" class="kpiTile">
+                            <TileContent id="_IDGenTileContent6">
+                                <NumericContent id="_IDGenNumericContent6" value="12"
+                                    icon="sap-icon://calendar" valueColor="Error" withMargin="false"/>
+                            </TileContent>
+                        </GenericTile>
+
+                        <GenericTile id="tileEvidence" header="Evidence Coverage" class="kpiTile">
+                            <TileContent id="_IDGenTileContent7">
+                                <NumericContent id="_IDGenNumericContent7" value="89" scale="%"
+                                    icon="sap-icon://document-text" valueColor="Good" withMargin="false"/>
+                            </TileContent>
+                        </GenericTile>
+
+                        <GenericTile id="tileConfidence" header="Assurance Confidence" class="kpiTile">
+                            <TileContent id="_IDGenTileContent8">
+                                <NumericContent id="_IDGenNumericContent8" value="82" scale="%"
+                                    icon="sap-icon://shield" valueColor="Good" withMargin="false"/>
+                            </TileContent>
+                        </GenericTile>
+
+                    </FlexBox>
+
+                    <!-- ROW 1 : SCORECARD | MODULE COMPLIANCE + MONITORING & DATA HEALTH -->
+                    <FlexBox id="scorecardModuleRow" renderType="Bare" class="cmRow">
+
+                        <VBox id="domainScorecardContainer" renderType="Bare" class="cmCard cmLeft">
+
+                            <Title id="domainScorecardTitle"
+                                   text="Control Domain Scorecard (11 Domains)"
+                                   level="H4" class="cmCardTitle"/>
+
+                            <Table id="domainScorecardTable" width="100%"
+                                   items="{scorecardModel>/items}"
+                                   class="sapUiSizeCompact">
+                                <columns>
+                                    <Column id="colNo"     width="4%"><Text id="hNo"     text="#"/></Column>
+                                    <Column id="colDomain" width="24%"><Text id="hDomain" text="Control Domain"/></Column>
+                                    <Column id="colApp"    width="9%"  hAlign="Center"><Text id="hApp"  text="Applicable"/></Column>
+                                    <Column id="colPass"   width="8%"  hAlign="Center"><Text id="hPass" text="Passed"/></Column>
+                                    <Column id="colFail"   width="7%"  hAlign="Center"><Text id="hFail" text="Failed"/></Column>
+                                    <Column id="colNT"     width="9%"  hAlign="Center"><Text id="hNT"   text="Not Tested"/></Column>
+                                    <Column id="colUn"     width="10%" hAlign="Center"><Text id="hUn"   text="Unavailable"/></Column>
+                                    <Column id="colComp"   width="10%" hAlign="Center"><Text id="hComp" text="Compliance"/></Column>
+                                    <Column id="colTarget" width="8%"  hAlign="Center"><Text id="hTarget" text="Target"/></Column>
+                                    <Column id="colStatus" width="11%"><Text id="hStatus" text="Status"/></Column>
+                                </columns>
+                                <items>
+                                    <ColumnListItem id="scorecardItem">
+                                        <cells>
+                                            <Text id="cNo"     text="{scorecardModel>no}"/>
+                                            <Text id="cDomain" text="{scorecardModel>domain}"/>
+                                            <Text id="cApp"    text="{scorecardModel>applicable}"/>
+                                            <Text id="cPass"   text="{scorecardModel>passed}"/>
+                                            <Text id="cFail"   text="{scorecardModel>failed}"/>
+                                            <Text id="cNT"     text="{scorecardModel>notTested}"/>
+                                            <Text id="cUn"     text="{scorecardModel>unavailable}"/>
+                                            <Text id="cComp"   text="{scorecardModel>compliance}"/>
+                                            <Text id="cTarget" text="{scorecardModel>target}"/>
+                                            <ObjectStatus id="cStatus"
+                                                text="{scorecardModel>status}"
+                                                state="{= ${scorecardModel>status} === 'On Track' ? 'Success' : (${scorecardModel>status} === 'Below Target' ? 'Error' : 'None') }"/>
+                                        </cells>
+                                    </ColumnListItem>
+                                </items>
+                            </Table>
+                        </VBox>
+
+                        <VBox id="rightColumn" renderType="Bare" class="cmRight">
+
+                            <VBox id="moduleComplianceContainer" renderType="Bare" class="cmCard">
+
+                                <Title id="moduleComplianceTitle" text="Module Compliance"
+                                       level="H4" class="cmCardTitle"/>
+
+                                <Table id="moduleComplianceTable" width="100%"
+                                       items="{moduleModel>/items}"
+                                       class="sapUiSizeCompact">
+                                    <columns>
+                                        <Column id="mColModule" width="30%"><Text id="mHModule" text="Module"/></Column>
+                                        <Column id="mColComp"   width="25%" hAlign="Center"><Text id="mHComp" text="Compliance"/></Column>
+                                        <Column id="mColTarget" width="20%" hAlign="Center"><Text id="mHTarget" text="Target"/></Column>
+                                        <Column id="mColStatus" width="25%" hAlign="Center"><Text id="mHStatus" text="Status"/></Column>
+                                    </columns>
+                                    <items>
+                                        <ColumnListItem id="moduleItem">
+                                            <cells>
+                                                <Text id="mCModule" text="{moduleModel>module}"/>
+                                                <ObjectNumber id="mCComp" number="{moduleModel>compliance}"
+                                                    state="{= parseFloat(${moduleModel>compliance}) >= 90 ? 'Success' : 'Error' }"/>
+                                                <Text id="mCTarget" text="{moduleModel>target}"/>
+                                                <ObjectStatus id="mCStatus" text="{moduleModel>status}"
+                                                    state="{= ${moduleModel>status} === 'On Track' ? 'Success' : 'Error' }"/>
+                                            </cells>
+                                        </ColumnListItem>
+                                    </items>
+                                </Table>
+                            </VBox>
+
+                            <VBox id="monitoringHealthContainer" renderType="Bare" class="cmCard">
+
+                                <Title id="healthTitle" text="Monitoring &amp; Data Health"
+                                       level="H4" class="cmCardTitle"/>
+
+                                <Table id="monitoringHealthTable" width="100%"
+                                       items="{healthModel>/items}"
+                                       class="sapUiSizeCompact"
+                                       noDataText="No monitoring data available">
+                                    <columns>
+                                        <Column id="hColComp"   width="24%"><Text id="hHComp"   text="Component"/></Column>
+                                        <Column id="hColStatus" width="14%" hAlign="Center"><Text id="hHStatus" text="Status"/></Column>
+                                        <Column id="hColAff"    width="15%" hAlign="Center"><Text id="hHAff"    text="Affected Controls"/></Column>
+                                        <Column id="hColLast"   width="17%" hAlign="Center"><Text id="hHLast"   text="Last Run"/></Column>
+                                        <Column id="hColReco"   width="30%"><Text id="hHReco"   text="Recommendation"/></Column>
+                                    </columns>
+                                    <items>
+                                        <ColumnListItem id="healthItem">
+                                            <cells>
+                                                <Text id="hCComp" text="{healthModel>component}"/>
+                                                <ObjectStatus id="hCStatus" text="{healthModel>status}"
+                                                    state="{healthModel>state}"/>
+                                                <Text id="hCAff"  text="{healthModel>affectedControls}"/>
+                                                <Text id="hCLast" text="{healthModel>lastRun}"/>
+                                                <Text id="hCReco" text="{healthModel>recommendation}"/>
+                                            </cells>
+                                        </ColumnListItem>
+                                    </items>
+                                </Table>
+                            </VBox>
+
+                        </VBox>
+
+                    </FlexBox>
+
+                    <!-- ROW 2 : TREND | ASSURANCE CONFIDENCE -->
+                    <FlexBox id="chartsRow" renderType="Bare" class="cmRow cmRowCharts">
+
+                        <VBox id="trendContainer" renderType="Bare" class="cmCard cmLeft">
+
+                            <Title id="trendTitle"
+                                   text="Control Effectiveness Trend (Actual vs Target)"
+                                   level="H4" class="cmCardTitle"/>
+
+                            <VBox id="trendChartBox" renderType="Bare" class="cmChartBox">
+                                <viz:VizFrame id="trendChart" vizType="line"
+                                              width="100%" height="280px"
+                                              uiConfig="{applicationSet:'fiori'}">
+                                    <viz:dataset>
+                                        <viz.data:FlattenedDataset id="trendDataset" data="{trendModel>/items}">
+                                            <viz.data:dimensions>
+                                                <viz.data:DimensionDefinition id="trendDim"
+                                                    name="Month" value="{trendModel>month}"/>
+                                            </viz.data:dimensions>
+                                            <viz.data:measures>
+                                                <viz.data:MeasureDefinition id="trendMeasActual"
+                                                    name="Actual" value="{trendModel>actual}"/>
+                                                <viz.data:MeasureDefinition id="trendMeasTarget"
+                                                    name="Target" value="{trendModel>target}"/>
+                                            </viz.data:measures>
+                                        </viz.data:FlattenedDataset>
+                                    </viz:dataset>
+                                    <viz:feeds>
+                                        <viz.feeds:FeedItem id="trendFeedValue" uid="valueAxis"
+                                            type="Measure" values="Actual,Target"/>
+                                        <viz.feeds:FeedItem id="trendFeedCat" uid="categoryAxis"
+                                            type="Dimension" values="Month"/>
+                                    </viz:feeds>
+                                </viz:VizFrame>
+                            </VBox>
+                        </VBox>
+
+                        <VBox id="assuranceContainer" renderType="Bare" class="cmCard cmRight">
+
+                            <Title id="assuranceTitle"
+                                   text="Assurance Confidence Overview"
+                                   level="H4" class="cmCardTitle"/>
+
+                            <VBox id="assuranceChartBox" renderType="Bare" class="cmChartBox">
+                                <viz:VizFrame id="assuranceChart" vizType="donut"
+                                              width="100%" height="280px"
+                                              uiConfig="{applicationSet:'fiori'}">
+                                    <viz:dataset>
+                                        <viz.data:FlattenedDataset id="assuranceDataset" data="{assuranceModel>/items}">
+                                            <viz.data:dimensions>
+                                                <viz.data:DimensionDefinition id="assuranceDim"
+                                                    name="Status" value="{assuranceModel>status}"/>
+                                            </viz.data:dimensions>
+                                            <viz.data:measures>
+                                                <viz.data:MeasureDefinition id="assuranceMeas"
+                                                    name="Controls" value="{assuranceModel>count}"/>
+                                            </viz.data:measures>
+                                        </viz.data:FlattenedDataset>
+                                    </viz:dataset>
+                                    <viz:feeds>
+                                        <viz.feeds:FeedItem id="assuranceFeedSize" uid="size"
+                                            type="Measure" values="Controls"/>
+                                        <viz.feeds:FeedItem id="assuranceFeedColor" uid="color"
+                                            type="Dimension" values="Status"/>
+                                    </viz:feeds>
+                                </viz:VizFrame>
+                            </VBox>
+                        </VBox>
+
+                    </FlexBox>
+
+                    <!-- ROW 3 : TOP CONTROL EXCEPTIONS | AI RECOMMENDATIONS -->
+                    <FlexBox id="bottomRow" renderType="Bare" class="cmRow cmRowLast">
+
+                        <!-- TOP CONTROL EXCEPTIONS -->
+                        <VBox id="exceptionsContainer" renderType="Bare" class="cmCard cmLeft">
+
+                            <Title id="exceptionsTitle"
+                                   text="Top Control Exceptions (Next 7 Days)"
+                                   level="H4" class="cmCardTitle"/>
+
+                            <Table id="exceptionsTable" width="100%"
+                                   items="{excModel>/items}"
+                                   class="sapUiSizeCompact">
+                                <columns>
+                                    <Column id="eColNo"    width="5%"><Text id="eHNo"    text="#"/></Column>
+                                    <Column id="eColId"    width="13%"><Text id="eHId"    text="Control ID"/></Column>
+                                    <Column id="eColCtrl"  width="31%"><Text id="eHCtrl"  text="Control"/></Column>
+                                    <Column id="eColMod"   width="11%"><Text id="eHMod"   text="Module"/></Column>
+                                    <Column id="eColOwn"   width="15%"><Text id="eHOwn"   text="Owner"/></Column>
+                                    <Column id="eColDue"   width="14%"><Text id="eHDue"   text="Due Date"/></Column>
+                                    <Column id="eColPri"   width="11%"><Text id="eHPri"   text="Priority"/></Column>
+                                </columns>
+                                <items>
+                                    <ColumnListItem id="exceptionItem">
+                                        <cells>
+                                            <Text id="eCNo"   text="{excModel>no}"/>
+                                            <Link id="eCId"   text="{excModel>id}"/>
+                                            <Text id="eCCtrl" text="{excModel>control}"/>
+                                            <Text id="eCMod"  text="{excModel>module}"/>
+                                            <Text id="eCOwn"  text="{excModel>owner}"/>
+                                            <Text id="eCDue"  text="{excModel>due}"/>
+                                            <ObjectStatus id="eCPri" text="{excModel>priority}"
+                                                state="{excModel>state}"/>
+                                        </cells>
+                                    </ColumnListItem>
+                                </items>
+                            </Table>
+
+                            <HBox id="exceptionsFooter" justifyContent="Center" class="cmCardFooter">
+                                <Link id="viewAllExceptions" text="View All Exceptions (30) →"/>
+                            </HBox>
+                        </VBox>
+
+                        <!-- AI RECOMMENDATIONS -->
+                        <VBox id="aiContainer" renderType="Bare" class="cmCard cmCardAi cmRight">
+
+                            <Title id="aiTitle"
+                                   text="AI Recommendations (Next Best Actions)"
+                                   level="H4" class="cmCardTitle"/>
+
+                            <Table id="aiTable" width="100%"
+                                   items="{aiModel>/items}"
+                                   class="sapUiSizeCompact">
+                                <columns>
+                                    <Column id="aColNo"   width="5%"><Text id="aHNo"   text="#"/></Column>
+                                    <Column id="aColRec"  width="45%"><Text id="aHRec"  text="Recommendation"/></Column>
+                                    <Column id="aColOwn"  width="17%"><Text id="aHOwn"  text="Owner"/></Column>
+                                    <Column id="aColDue"  width="17%"><Text id="aHDue"  text="Due Date"/></Column>
+                                    <Column id="aColImp"  width="16%"><Text id="aHImp"  text="Impact"/></Column>
+                                </columns>
+                                <items>
+                                    <ColumnListItem id="aiItem">
+                                        <cells>
+                                            <Text id="aCNo"  text="{aiModel>no}"/>
+                                            <Text id="aCRec" text="{aiModel>text}"/>
+                                            <Text id="aCOwn" text="{aiModel>owner}"/>
+                                            <Text id="aCDue" text="{aiModel>due}"/>
+                                            <ObjectStatus id="aCImp" text="{aiModel>impact}"
+                                                state="{aiModel>state}"/>
+                                        </cells>
+                                    </ColumnListItem>
+                                </items>
+                            </Table>
+                        </VBox>
+
+                    </FlexBox>
+
+                </VBox>
+
+<!-- RISK ASSESSMENT -->
+
+<VBox
+    id="riskAssessmentContent"
+    visible="false"
+    width="auto"
+    class="sapUiSizeCompact sapUiTinyMarginTop sapUiSmallMarginBegin sapUiSmallMarginEnd">
+
+    <!-- HEADING -->
+
+    <FlexBox
+        id="riskAssessmentHeader"
+        justifyContent="SpaceBetween"
+        alignItems="Center"
+        width="100%"
+        wrap="Wrap"
+        class="sapUiSmallMarginBottom">
+
+        <VBox id="riskAssessmentHeadingBox">
+
+            <Title
+                id="riskTitle"
+                text="Risk Assessment"
+                level="H3"
+                class="customHeading"/>
+
+            <Text
+                id="riskSubtitle"
+                text="SAP Risk Identification, Evaluation, Treatment &amp; Governance"/>
+
+        </VBox>
+
+        <HBox
+            id="riskHeaderRight"
+            alignItems="Center"
+            wrap="Wrap">
+
+            <ObjectStatus
+                id="riskDemoStatus"
+                text="ILLUSTRATIVE DEMO DATA"
+                state="Information"
+                class="sapUiTinyMarginEnd"/>
+
+            <ObjectStatus
+                id="riskLastRefresh"
+                text="Last Refresh: 15 Nov 2026, 10:24 AM"
+                state="Success"/>
+
+        </HBox>
+
+    </FlexBox>
+
+
+    <!-- FILTER BAR -->
+
+    <fb:FilterBar
+        id="riskFilterBar"
+        useToolbar="false"
+        showGoOnFB="true"
+        showFilterConfiguration="false"
+        showClearOnFB="false"
+        search="onFilterSearch">
+
+        <fb:filterGroupItems>
+
+            <!-- SYSTEM -->
+
+            <fb:FilterGroupItem
+                id="riskFiSystem"
+                groupName="G1"
+                name="system"
+                label="System"
+                visibleInFilterBar="true">
+
+                <fb:control>
+                    <Select
+                        id="riskSelSystem"
+                        selectedKey="prd">
+
+                        <core:Item
+                            id="riskSystemItem"
+                            key="prd"
+                            text="S/4HANA PRD"/>
+
+                    </Select>
+                </fb:control>
+
+            </fb:FilterGroupItem>
+
+
+            <!-- COMPANY CODE -->
+
+            <fb:FilterGroupItem
+                id="riskFiCompany"
+                groupName="G1"
+                name="company"
+                label="Company Code"
+                visibleInFilterBar="true">
+
+                <fb:control>
+                    <Select
+                        id="riskSelCompany"
+                        selectedKey="all">
+
+                        <core:Item
+                            id="riskCompanyItem"
+                            key="all"
+                            text="All"/>
+
+                    </Select>
+                </fb:control>
+
+            </fb:FilterGroupItem>
+
+
+            <!-- RISK DOMAIN -->
+
+            <fb:FilterGroupItem
+                id="riskFiDomain"
+                groupName="G1"
+                name="riskDomain"
+                label="Risk Domain"
+                visibleInFilterBar="true">
+
+                <fb:control>
+                    <Select
+                        id="riskSelDomain"
+                        selectedKey="all">
+
+                        <core:Item
+                            id="riskDomainItem"
+                            key="all"
+                            text="All"/>
+
+                    </Select>
+                </fb:control>
+
+            </fb:FilterGroupItem>
+
+
+            <!-- PROCESS / MODULE -->
+
+            <fb:FilterGroupItem
+                id="riskFiProcess"
+                groupName="G1"
+                name="process"
+                label="Process / Module"
+                visibleInFilterBar="true">
+
+                <fb:control>
+                    <Select
+                        id="riskSelProcess"
+                        selectedKey="all">
+
+                        <core:Item
+                            id="riskProcessItem"
+                            key="all"
+                            text="All"/>
+
+                    </Select>
+                </fb:control>
+
+            </fb:FilterGroupItem>
+
+
+            <!-- RISK OWNER -->
+
+            <fb:FilterGroupItem
+                id="riskFiOwner"
+                groupName="G1"
+                name="riskOwner"
+                label="Risk Owner"
+                visibleInFilterBar="true">
+
+                <fb:control>
+                    <Select
+                        id="riskSelOwner"
+                        selectedKey="all">
+
+                        <core:Item
+                            id="riskOwnerItem"
+                            key="all"
+                            text="All"/>
+
+                    </Select>
+                </fb:control>
+
+            </fb:FilterGroupItem>
+
+
+            <!-- ASSESSMENT PERIOD -->
+
+            <fb:FilterGroupItem
+                id="riskFiPeriod"
+                groupName="G1"
+                name="assessmentPeriod"
+                label="Assessment Period"
+                visibleInFilterBar="true">
+
+                <fb:control>
+                    <Select
+                        id="riskSelPeriod"
+                        selectedKey="Q4">
+
+                        <core:Item
+                            id="riskPeriodItem"
+                            key="Q4"
+                            text="Q4 2026"/>
+
+                    </Select>
+                </fb:control>
+
+            </fb:FilterGroupItem>
+
+        </fb:filterGroupItems>
+
+    </fb:FilterBar>
+
+</VBox>
+
+
+            </VBox>
+
+        </content>
+    </Page>
+
+</mvc:View>

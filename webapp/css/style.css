@@ -1,0 +1,118 @@
+/* ============ HEADING ============ */
+.customHeading {
+    font-size: 1.2rem;
+    color: var(--sapLinkColor);
+}
+
+/* ============ KPI TILES ============ */
+.kpiTiles {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: stretch;
+    gap: 12px;
+    width: 100%;
+    margin-top: 12px;
+    box-sizing: border-box;
+}
+
+.kpiTiles .kpiTile {
+    width: 10.5rem !important;
+    min-width: 10.5rem;
+    height: 10rem !important;
+    flex: 0 0 10.5rem;
+    box-sizing: border-box;
+}
+
+/* ============ ROWS ============ */
+.cmRow {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    gap: 12px;
+    width: 100%;
+    margin-top: 12px;
+    box-sizing: border-box;
+}
+
+/* charts row */
+.cmRowCharts {
+    margin-top: 16px;
+    margin-bottom: 0;
+}
+
+/* last row (exceptions + AI) */
+.cmRowLast {
+    margin-top: 12px;
+    margin-bottom: 16px;
+}
+
+.cmCard {
+    background: #ffffff;
+    border: 1px solid #e5e9ed;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+/* AI card red border (PDF) */
+.cmCardAi {
+    border: 1px solid #e57373;
+}
+
+/* equal width columns */
+.cmLeft,
+.cmRight {
+    flex: 1 1 0;
+    min-width: 0;
+}
+
+.cmRight {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.cmRight .cmCard {
+    flex: 1 1 auto;
+}
+
+.cmCardTitle {
+    padding: 12px 16px 8px 16px;
+}
+
+.cmCardFooter {
+    padding: 8px 16px 12px 16px;
+    text-align: center;
+}
+
+/* chart area */
+.cmChartBox {
+    padding: 0 12px 12px 12px;
+    box-sizing: border-box;
+}
+
+.cmCard .sapMListTbl {
+    width: 100%;
+}
+
+.cmCard .sapMListTblHeaderCell {
+    font-weight: 600;
+}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width: 900px) {
+    .cmRow {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 600px) {
+    .kpiTiles .kpiTile {
+        width: 9.5rem !important;
+        min-width: 9.5rem;
+        flex: 0 0 9.5rem;
+    }
+}
