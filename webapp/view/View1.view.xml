@@ -620,7 +620,7 @@
             </fb:FilterGroupItem>
 
 
-            <!-- ASSESSMENT PERIOD -->
+            <!-- ASSESSMENT PERI -->
 
             <fb:FilterGroupItem
                 id="riskFiPeriod"
